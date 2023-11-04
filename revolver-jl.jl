@@ -49,7 +49,7 @@ function print_mode(m,j)
 end
 
 print_key(k) = for j in eachindex(k) print_mode(k[j],j) end
-
+roll_mode(m, w, a) = for i in 1:num_w m[w][i] = map(x -> mod1(x+a, length(alph)), m[w][i]) end
 next(x, k , m, s) = for i in eachindex(k[m][s]) if prefix(k[m][s][i], x) return i end end
 
 function encode(p,q)
@@ -60,7 +60,10 @@ function encode(p,q)
         j = next(p, k , m, 1)
         append!(c,k[m][2][j])
         p = last(p, length(p) - length(k[m][1][j]))
+        x = k[m][1][j][begin] #first symbol of p
+        y = k[m][2][j][begin] #first symbol of c
         m = k[m][3][j]
+        roll_mode(k[m],mod1(y,2), x)
     end
     c
 end
@@ -71,8 +74,11 @@ function decode(c,q)
     while length(c) > 0
         j = next(c, k , m, 2)
         append!(p,k[m][1][j])
+        x = k[m][1][j][begin] #first symbol of p
+        y = k[m][2][j][begin] #first symbol of c
         c = last(c, length(c) - length(k[m][2][j]))
         m = k[m][3][j]
+        roll_mode(k[m], mod1(y,2),x)
     end
     p
 end
@@ -112,10 +118,10 @@ end
 # alph = "abcdefghijklmnopqrstuvwxyz"
 # alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 alph ="0|"
-e = 2 # words beyond length of alph
+e = 1 # words beyond length of alph
 num_w = length(alph) + e
-n = 4
+n = 6
 l = 1
 L = 2
-r = 2
+r = 4
 k = random_key(n)

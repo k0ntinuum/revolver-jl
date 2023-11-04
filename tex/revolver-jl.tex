@@ -30,16 +30,9 @@
 
 {\setstretch{0.0}{
 
-\b{Prefix} is a symmetric cryptosystem based primarily on prefix codes, also known as  instantaneous codes.  Since the union of prefix codes is not in general itself a prefix code, this makes the encrypted output difficult to tokenize. Even the numbers of symbols transmitted is unclear.
+\b{Revolver} is just Prefix with an extra feature, which is to say a symmetric cryptosystem based primarily on prefix/instantaneous codes.  Since the union of prefix codes is not in general itself a prefix code, this makes the encrypted output difficult to tokenize. Please see the pdf in \b{prefix-jl} repo to understand Prefix.
 
-It is often the case that a single plaintext symbol becomes several ciphertext symbols. So the output tends to be longer than the input. Yet this crypto system also occasionally compresses its input, replacing several symbols with just one. While this feature could be removed (in fact, simply by choosing $e = 0$), leaving the system intact, it's a nice complement that only increases the unpredictable relationship between the length of the plaintext and the ciphertext. 
-
-I've included a simpler, Javascript version which may help programmers familiar with that language understand the Julia version. The actual encoding and decoding algorithms are fairly simple. Generating decent random keys is at least as complicated. The JS version doesn't include key generation, so it's the bare bones of Prefix. 
-
-I've also included sample computations created with a Typescript version. Studying these in relation to the key is probably the fastest/easiest way to understand the system.
-
-
-
+What Revolver adds is an evolution of the Prefix key that maintains its functionality. Essentially an entire mode's prefix code is \q{rolled} forward using both the plaintext and ciphertext so that it remains a prefix code. Its symbols are permuted. Actually the input code (not a prefix code) is also permuted, for a different but also compatible effect.  This small tweak might (intuitively seems that it should) make the same key far more secure. 
 
 
 }}
