@@ -12,9 +12,6 @@ struct Settings
     rounds :: Int 
 end
 
-
-    
-
 function random_word(k) 
     rand(1:n,k)
 end
@@ -37,7 +34,6 @@ end
 
 
 include("key-jl.jl")
-
 
 function str_from_vec(v,x,s :: Settings)
     join(map(i -> s.out_alph[i:i] * x,v ))
@@ -62,7 +58,6 @@ end
 function gray(h)
     rgb(h,h,h)
 end
-
 
 function print_mode(m,j,s :: Settings)
     for i in 1:s.num_words
